@@ -33,10 +33,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      flash[:success] = 'タスク が正常に登録されました'
+      flash[:success] = 'タスク が正常に更新されました'
       redirect_to @task
     else
-      flash.now[:danger] = 'タスク が正常に登録されませんでした'
+      flash.now[:danger] = 'タスク が正常に更新されませんでした'
       render :edit
     end
   end
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
 
   # Strong Parameter
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content, :status)
   end
 
 end
