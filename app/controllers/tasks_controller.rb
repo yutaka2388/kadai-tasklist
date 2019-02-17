@@ -1,22 +1,24 @@
-class TasklistController < ApplicationController
+class TasksController < ApplicationController
   def index
-    @messages = Message.all
+    # "/" + get
+    @tasks = Task.all
+    #render :index #app/views/tasks/index.html.erb
   end
 
   def show
-    @message = Message.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def new
-    @message = Message.new
+    @task = Task.new
   end
 
   def create
-    @message = Message.new(message_params)
+    @task = Task.new(task_params)
 
-    if @message.save
+    if @task.save
       flash[:success] = 'タスク が正常に登録されました'
-      redirect_to @message
+      redirect_to @task
     else
       flash.now[:danger] = 'タスク が登録されませんでした'
       render :new
@@ -24,15 +26,15 @@ class TasklistController < ApplicationController
   end
 
   def edit
-     @message = Message.find(params[:id])
+     @task = Task.find(params[:id])
   end
 
   def update
-    @message = Message.find(params[:id])
+    @task = Task.find(params[:id])
 
-    if @message.update(message_params)
+    if @task.update(task_params)
       flash[:success] = 'タスク が正常に登録されました'
-      redirect_to @message
+      redirect_to @task
     else
       flash.now[:danger] = 'タスク が正常に登録されませんでした'
       render :edit
@@ -40,18 +42,18 @@ class TasklistController < ApplicationController
   end
 
   def destroy
-        @message = Message.find(params[:id])
-    @message.destroy
+        @task = Task.find(params[:id])
+    @task.destroy
 
     flash[:success] = 'タスク は正常に削除されました'
-    redirect_to messages_url
+    redirect_to tasks_url
   end
   
  private
 
   # Strong Parameter
-  def message_params
-    params.require(:message).permit(:content)
+  def task_params
+    params.require(:task).permit(:content)
   end
 
 end
