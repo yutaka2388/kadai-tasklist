@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  before_action :require_user_logged_in
+  before_action :current_user, only: [:destroy]
+
   def index
     # "/" + get
     @tasks = Task.all.page(params[:page]).per(10)
@@ -14,7 +17,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(
+      content: params[:content],user_id: @current_user.id
+      )
+    
 
     if @task.save
       flash[:success] = 'タスク が正常に登録されました'
