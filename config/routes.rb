@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/create'
+  get 'relationships/destroy'
   root to: 'tasks#index'
 
   get 'signup', to: 'users#new'
