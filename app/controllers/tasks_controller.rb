@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user
+  before_action :correct_user, only: [:destroy]
 
   def index
     # "/" + get
-    @tasks = Task.all.page(params[:page]).per(10)
+    if logged_in?
+      @tasks = current_user.tasks.page(params[:page]).per(10)
+    end
     #render :index #app/views/tasks/index.html.erb
   end
 
